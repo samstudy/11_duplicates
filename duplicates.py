@@ -42,6 +42,6 @@ def results(dict):
 
 
 if __name__ == '__main__':
-    data = duplic('input the folder's path')
+    data = duplic('input a folder path')
     print  (results(data))
   
