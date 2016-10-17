@@ -42,6 +42,6 @@ def results(dict):
 
 
 if __name__ == '__main__':
-    data = duplic('/home/trash/')
+    data = duplic('input the folder's path')
     print  (results(data))
   
