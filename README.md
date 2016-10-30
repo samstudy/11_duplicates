@@ -1,5 +1,5 @@
- 11_duplicates
+# 11_duplicates
 
- 1.The script will find all duplicates despite of different name
- 2.Need to input a path where located a folder
- 3.Run the script
+###The script will find all duplicates files despite of different name
+** Need to input into the script the folder's path
+** Run the script

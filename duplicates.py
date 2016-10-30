@@ -1,12 +1,14 @@
-import os, sys
+import os 
+import sys
 import hashlib
 
 
 block_size = 64
 
-def duplic(basicfolder):
+
+def duplic(initial_folder):
     dups = {}
-    for dirs, subdirs, files in os.walk(basicfolder):
+    for dirs, subdirs, files in os.walk(initial_folder):
         print('Scanning %s...' % dirs)
         for filename in files:
             path = os.path.join(dirs, filename)
@@ -16,6 +18,7 @@ def duplic(basicfolder):
             else:
                 dups[file_hash] = [path]
     return dups
+
 
 def hashfile(path):
     afile = open(path, 'rb')
@@ -27,6 +30,7 @@ def hashfile(path):
     afile.close()
     return hasher.hexdigest()
 
+
 def results(dict):
     results = list(filter(lambda x: len(x) > 1, dict.values()))
     if len(results) > 0:
@@ -36,12 +40,11 @@ def results(dict):
             for subresult in result:
                 print('\t\t%s' % subresult)
             print('___________________')
- 
-    else:
+     else:
         print('No duplicate files found.')
 
 
 if __name__ == '__main__':
-    data = duplic('input a folder path')
-    print  (results(data))
+    data = duplic('input path of foder')
+    print(results(data))
   
