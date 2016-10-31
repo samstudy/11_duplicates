@@ -40,7 +40,7 @@ def results(dict):
             for subresult in result:
                 print('\t\t%s' % subresult)
             print('___________________')
-     else:
+    else:
         print('No duplicate files found.')
 
 
