@@ -1,12 +1,9 @@
 ![duplicate-content](https://cloud.githubusercontent.com/assets/22424468/21593303/e0f7fd30-d13f-11e6-8bab-41c745a34455.png)
-
 ____
 # Anti-Duplicator
 ____
 
-
 > ###The script will find all duplicate files despite of different name
-
 
 ### Usage
 
@@ -16,7 +13,6 @@ ____
 ### Requirement
     
     Python >=3.5.
-
 
 # Project Goals
 
