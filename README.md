@@ -5,7 +5,7 @@ ____
 ____
 
 
-> ###The script will find all duplicates files despite of different name
+> ###The script will find all duplicate files despite of different name
 
 
 ### Usage

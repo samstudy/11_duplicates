@@ -3,47 +3,38 @@ import sys
 import hashlib
 
 
-
-def get_identical_files(folder_for_check):
-    identical_files = {}
+def get_duplicate_files(folder_for_check):
+    duplicates = {}
     for dirs, subdirs, files in os.walk(folder_for_check):
+        print('Scanning %s...' % dirs)
         for filename in files:
             path = os.path.join(dirs, filename)
-            file_hash = get_hash_of_files(path)
-            if file_hash in identical_files:
-                identical_files[file_hash].append(path)
+            file_hash = get_hashfile(path)
+            if file_hash in duplicates:
+                duplicates[file_hash].append(path)
             else:
-                identical_files[file_hash] = [path]
-    return identical_files
-
-
-def get_hash_of_files(path):
-    block_size = 64
-    afile = open(path, 'rb')
-    hasher = hashlib.md5()
-    buf = afile.read(block_size)
-    while len(buf) > 0:
-        hasher.update(buf)
-        buf = afile.read(block_size)
-    afile.close()
-    return hasher.hexdigest()
-
-
-def show_identical_files(dict):
-    results = list(filter(lambda x: len(x) > 1, dict.values()))
+                duplicates[file_hash] = [path]
+    results = list(filter(lambda x: len(x) > 1, duplicates.values()))
     if len(results) > 0:
+        print('The following files are identical:')
         for result in results:
-            print('This files are identical:')
             for subresult in result:
                 print('\t\t%s' % subresult)
     else:
         print('No duplicate files found.')
 
 
+
+def get_hashfile(path):
+    with open(path,encoding='utf-8', errors='ignore') as file_handler:
+        hash_object = hashlib.md5()
+        buf = file_handler.read()
+        while len(buf) > 0:
+            hash_object.update(buf.encode('utf-8'))
+            buf = file_handler.read()
+        return hash_object.hexdigest()
+
+
 if __name__ == '__main__':
-    identical_files = get_identical_files('put_a_folder_path')
-    show_identical_files(identical_files)
-
-
-
-  
+    get_duplicate_files('input_a_path')
+    
