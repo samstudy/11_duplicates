@@ -14,15 +14,7 @@ def get_duplicate_files(folder_for_check):
                 duplicates[file_hash].append(path)
             else:
                 duplicates[file_hash] = [path]
-    results = list(filter(lambda x: len(x) > 1, duplicates.values()))
-    if len(results) > 0:
-        print('The following files are identical:')
-        for result in results:
-            for subresult in result:
-                print('\t\t%s' % subresult)
-    else:
-        print('No duplicate files found.')
-
+    return duplicates
 
 
 def get_hashfile(path):
@@ -35,6 +27,17 @@ def get_hashfile(path):
         return hash_object.hexdigest()
 
 
+def are_files_duplicates(path):
+    duplicate = get_duplicate_files(path)
+    results = list(filter(lambda x: len(x) > 1, duplicate.values()))
+    if len(results) > 0:
+        print('The following files are identical:')
+        for result in results:
+            for subresult in result:
+                print('\t\t%s' % subresult)
+    else:
+        print('No duplicate files found.')
+
+
 if __name__ == '__main__':
-    get_duplicate_files('input_a_path')
-    
+    are_files_duplicates('input_a_path')
