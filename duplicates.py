@@ -3,24 +3,22 @@ import sys
 import hashlib
 
 
-block_size = 64
 
-
-def duplic(initial_folder):
-    dups = {}
-    for dirs, subdirs, files in os.walk(initial_folder):
-        print('Scanning %s...' % dirs)
+def get_identical_files(folder_for_check):
+    identical_files = {}
+    for dirs, subdirs, files in os.walk(folder_for_check):
         for filename in files:
             path = os.path.join(dirs, filename)
-            file_hash = hashfile(path)
-            if file_hash in dups:
-                dups[file_hash].append(path)
+            file_hash = get_hash_of_files(path)
+            if file_hash in identical_files:
+                identical_files[file_hash].append(path)
             else:
-                dups[file_hash] = [path]
-    return dups
+                identical_files[file_hash] = [path]
+    return identical_files
 
 
-def hashfile(path):
+def get_hash_of_files(path):
+    block_size = 64
     afile = open(path, 'rb')
     hasher = hashlib.md5()
     buf = afile.read(block_size)
@@ -31,20 +29,21 @@ def hashfile(path):
     return hasher.hexdigest()
 
 
-def results(dict):
+def show_identical_files(dict):
     results = list(filter(lambda x: len(x) > 1, dict.values()))
     if len(results) > 0:
-        print('The following files are identical.')
-        print('___________________')
         for result in results:
+            print('This files are identical:')
             for subresult in result:
                 print('\t\t%s' % subresult)
-            print('___________________')
     else:
         print('No duplicate files found.')
 
 
 if __name__ == '__main__':
-    data = duplic('input path of foder')
-    print(results(data))
+    identical_files = get_identical_files('put_a_folder_path')
+    show_identical_files(identical_files)
+
+
+
   
