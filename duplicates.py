@@ -12,7 +12,7 @@ def get_name_size_of_files(folder_for_check):
 
 
 if __name__ == '__main__':
-    all_files = get_name_size_of_files('/home/trash')
+    all_files = get_name_size_of_files('put a path')
     duplicates = [subject for subject in all_files if all_files.count(subject) > 1]
     print('Was found those identical files:')
     for duplicate in duplicates:
