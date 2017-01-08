@@ -3,7 +3,7 @@ ____
 # Anti-Duplicator
 ____
 
-> ###The script will find all duplicate files despite of different name
+> ###The script will find all duplicate files based on name and size
 
 ### Usage
 
