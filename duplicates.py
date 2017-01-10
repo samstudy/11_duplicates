@@ -1,21 +1,23 @@
-import os 
+import os
+import itertools
 
 
-def get_name_size_of_files(folder_for_check):
-    name_store = []
-    size_store = []
+def get_duplicate_files(folder_for_check):
+    duplic_store = []
+    path_name = []
     for dirs, subdirs, files in os.walk(folder_for_check):
-        name_store.extend(os.path.join(filename) for filename in files)
-        size_store.extend(os.path.getsize(filename) for filename  in files) 
-    basic_store = list(zip(name_store, size_store)) 
-    return basic_store
+        path_name.extend(os.path.join(dirs,filename) for filename in files)
+    for file1, file2 in itertools.combinations(path_name, 2):
+        fname, fname2 = os.path.basename(file1), os.path.basename(file2),
+        fsize, fsize2 = os.path.getsize(file1), os.path.getsize(file2)
+        if fname == fname2 and fsize == fsize2:
+            duplic_store.extend([file1, file2])
+    return duplic_store
 
 
 if __name__ == '__main__':
-    all_files = get_name_size_of_files('put a path')
-    duplicates = [subject for subject in all_files if all_files.count(subject) > 1]
+    duplic_files= get_duplicate_files('input_a_path')
     print('Was found those identical files:')
-    for duplicate in duplicates:
-        print('name of file:', duplicate[0],'size of file:', duplicate[1])
-    
+    for files in duplic_files:
+        print(files)
     
