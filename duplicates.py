@@ -1,5 +1,12 @@
 import os
 import itertools
+import filecmp
+
+
+def compare_files(file1, file2):
+    if  filecmp.cmp(file1 ,file2):
+        return True
+    return False
 
 
 def get_duplicate_files(folder_for_check):
@@ -8,9 +15,7 @@ def get_duplicate_files(folder_for_check):
     for dirs, subdirs, files in os.walk(folder_for_check):
         path_name.extend(os.path.join(dirs,filename) for filename in files)
     for file1, file2 in itertools.combinations(path_name, 2):
-        fname, fname2 = os.path.basename(file1), os.path.basename(file2),
-        fsize, fsize2 = os.path.getsize(file1), os.path.getsize(file2)
-        if fname == fname2 and fsize == fsize2:
+        if compare_files(file1,file2):
             duplic_store.extend([file1, file2])
     return duplic_store
 
