@@ -1,28 +1,26 @@
 import os
 import itertools
-import filecmp
+from collections import defaultdict
 
 
-def compare_files(file1, file2):
-    if  filecmp.cmp(file1 ,file2):
-        return True
-    return False
-
-
-def get_duplicate_files(folder_for_check):
-    duplic_store = []
-    path_name = []
+def get_usefull_information(folder_for_check):
+    files_size = []
+    files_name = []
+    files_path = []
     for dirs, subdirs, files in os.walk(folder_for_check):
-        path_name.extend(os.path.join(dirs,filename) for filename in files)
-    for file1, file2 in itertools.combinations(path_name, 2):
-        if compare_files(file1,file2):
-            duplic_store.extend([file1, file2])
-    return duplic_store
+        files_name.extend(os.path.join(filename) for filename in files)
+        files_path.extend(os.path.join(dirs,filename) for filename in files)
+        files_size.extend(os.path.getsize(filename) for filename in files)
+    name_and_size_store = list(zip(files_name, files_size))
+    basic_store = list(zip(name_and_size_store,files_path))
+    return basic_store
 
 
-if __name__ == '__main__':
-    duplic_files= get_duplicate_files('input_a_path')
-    print('Was found those identical files:')
-    for files in duplic_files:
-        print(files)
-    
+if name == '__main__':
+    files_info = get_usefull_information('put_a_path')
+filename_and_size_to_paths = {}
+for filename_size, filepath in files_info:
+    filename_and_size_to_paths.setdefault(filename_size, []).append(filepath)
+duplicates = {filename: uniq_files for filename, uniq_files in filename_and_size_to_paths.items() if len(uniq_files) > 1}
+for name_size,path in duplicates.items():
+    print('This file-->', name_size[0],'has duplic', 'which occupy',(name_size[1])/1024,'Mb','and locates here',path)
