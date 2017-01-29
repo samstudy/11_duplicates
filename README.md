@@ -7,7 +7,7 @@ ____
 
 ### Usage
 
-    Need to input into the script the folder's path
+    Need to provide a name of directory where script will find out duplicated files
     Run the script like python duplicates.py
 
 ### Requirement
