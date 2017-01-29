@@ -8,7 +8,7 @@ ____
 ### Usage
 
     Need to provide a name of directory where script will find out duplicated files
-    Run the script like python duplicates.py
+    Run the script like python duplicates.py 'directory'
 
 ### Requirement
     
