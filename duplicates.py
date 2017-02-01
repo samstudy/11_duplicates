@@ -29,6 +29,10 @@ def get_duplicated_files(files_info):
     for filename_size, filepath in files_info:
         filename_and_size_to_paths.setdefault(filename_size, []).append(filepath)
     duplicates = {filename: uniq_files for filename, uniq_files in filename_and_size_to_paths.items() if len(uniq_files) > 1}
+    return duplicates
+
+
+def show_duplicated_files(duplicates):
     for name_size,path in duplicates.items():
         print('This file-->', name_size[0],'has duplic', 'which occupy',(name_size[1])/1024,'Mb','and locates here',path)
 
@@ -39,4 +43,5 @@ if __name__ == '__main__':
         print('There is none check for find out')
         exit()
     files_info = get_files_information(folder_for_check)
-    get_duplicated_files(files_info)
+    duplicated_files = get_duplicated_files(files_info)
+    show_duplicated_files(duplicated_files)
